@@ -77,6 +77,19 @@ python tools/draw_examples.py --name square_with_diagonal --mode save
 python tools/draw_examples.py --name triangle --mode both
 ```
 
+## Случайные движения с весами
+Для длинного цикла случайных движений используйте:
+
+```bash
+python scripts/run_random_moves.py --config examples/run_configs/random_moves_triangle.yaml
+```
+
+Шаблон полного конфига с источниками `yaml/manual/atlas`:
+
+```text
+examples/run_configs/random_moves_template.yaml
+```
+
 ## Документация
 Документация будет пополняться по мере развития проекта. Основные сведения — в Markdown-файлах в docs/ и docstring NumPy-стиля в коде.
 

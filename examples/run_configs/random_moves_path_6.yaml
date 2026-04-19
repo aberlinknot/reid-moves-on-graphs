@@ -1,0 +1,21 @@
+iterations: 1000
+seed: 10
+log_path: results/logs/random_moves_path_6.jsonl
+
+source:
+  type: manual
+  manual:
+    nodes: [1, 2, 3, 4, 5, 6]
+    edges:
+      - [1, 2]
+      - [2, 3]
+      - [3, 4]
+      - [4, 5]
+      - [5, 6]
+
+weights:
+  move_1_add: 0.05
+  move_1_remove: 0.10
+  move_2_add: 0.15
+  move_2_remove: 0.20
+  move_3: 0.50

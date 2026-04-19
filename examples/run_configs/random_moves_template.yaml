@@ -1,0 +1,26 @@
+iterations: 200
+seed: 42
+log_path: results/logs/random_moves.jsonl
+
+source:
+  type: yaml # yaml | manual | atlas
+
+  # For type: yaml
+  yaml_path: examples/graphs/triangle.yaml
+
+  # For type: manual
+  manual:
+    nodes: [0, 1, 2]
+    edges:
+      - [0, 1]
+      - [1, 2]
+
+  # For type: atlas
+  atlas_index: 10
+
+weights:
+  move_1_add: 0.10
+  move_1_remove: 0.10
+  move_2_add: 0.20
+  move_2_remove: 0.20
+  move_3: 0.40
