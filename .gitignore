@@ -1,0 +1,24 @@
+# Python bytecode and cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+.env/
+.venv/
+venv/
+
+# IDE/editor config files
+.idea/
+.vscode/
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/
+
+# macOS system files
+.DS_Store
+
+# Build artifacts and package metadata
+build/
+dist/
+.eggs/
+*.egg-info/
