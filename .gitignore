@@ -22,3 +22,7 @@ build/
 dist/
 .eggs/
 *.egg-info/
+
+# Generated result images (keep directory structure)
+results/images/*
+!results/images/.gitkeep

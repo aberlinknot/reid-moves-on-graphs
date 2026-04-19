@@ -1,0 +1,10 @@
+name: square_with_diagonal
+title: Square with one diagonal
+with_labels: true
+nodes: [1, 2, 3, 4]
+edges:
+  - [1, 2]
+  - [2, 3]
+  - [3, 4]
+  - [4, 1]
+  - [1, 3]

@@ -1,0 +1,8 @@
+# Copy this file and rename it, for example: my_graph.yaml
+name: my_graph
+title: My Graph
+with_labels: true
+nodes: [1, 2, 3]
+edges:
+  - [1, 2]
+  - [2, 3]

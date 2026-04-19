@@ -11,7 +11,10 @@
 - `src/` — основной код (модули для работы с графами и движениями)
 - `tests/` — тесты
 - `docs/` — документация
+- `examples/` — набор YAML-конфигов графов (по одному файлу на граф)
+- `results/` — результаты запусков (например, сохранённые изображения)
 - `scripts/` — исследовательские и демонстрационные скрипты
+- `tools/` — утилиты (например, визуализация и запуск примеров)
 - `PLAN.md` — план работ
 - `requirements.txt` — зависимости
 
@@ -47,6 +50,32 @@
 
 4. Ознакомьтесь с планом: см. PLAN.md
 5. Запустите примеры из scripts/ или создайте свой скрипт
+
+## Быстрая визуализация из YAML
+Для редактируемого набора базовых графов используйте директорию `examples/graphs/` и скрипт:
+
+```bash
+python tools/draw_examples.py --name triangle
+```
+
+Чтобы посмотреть список доступных графов:
+
+```bash
+python tools/draw_examples.py --list
+```
+
+Сохранить рисунок в `results/images/` без открытия окна:
+
+```bash
+python tools/draw_examples.py --name triangle --mode save
+python tools/draw_examples.py --name square_with_diagonal --mode save
+```
+
+Сохранить и показать одновременно:
+
+```bash
+python tools/draw_examples.py --name triangle --mode both
+```
 
 ## Документация
 Документация будет пополняться по мере развития проекта. Основные сведения — в Markdown-файлах в docs/ и docstring NumPy-стиля в коде.

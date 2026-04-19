@@ -1,0 +1,9 @@
+name: path_5
+title: Path on 5 nodes
+with_labels: true
+nodes: [1, 2, 3, 4, 5]
+edges:
+  - [1, 2]
+  - [2, 3]
+  - [3, 4]
+  - [4, 5]
