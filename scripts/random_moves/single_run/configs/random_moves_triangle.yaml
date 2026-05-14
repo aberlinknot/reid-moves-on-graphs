@@ -1,6 +1,6 @@
 iterations: 50
 seed: 7
-log_path: results/logs/random_moves_triangle.jsonl
+log_path: scripts/random_moves/single_run/logs/random_moves_triangle.jsonl
 
 source:
   type: yaml

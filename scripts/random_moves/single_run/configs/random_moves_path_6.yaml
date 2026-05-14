@@ -1,6 +1,6 @@
 iterations: 1000
 seed: 10
-log_path: results/logs/random_moves_path_6.jsonl
+log_path: scripts/random_moves/single_run/logs/random_moves_path_6.jsonl
 
 source:
   type: manual

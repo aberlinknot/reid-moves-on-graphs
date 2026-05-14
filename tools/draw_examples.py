@@ -7,12 +7,15 @@ All code, comments, and docstrings must be in English (NumPy style).
 from __future__ import annotations
 
 import argparse
+import logging
 from pathlib import Path
 from typing import Literal
 
+from src.logging_config import log_event, setup_logging
 from src.parsers.graph_yaml_parser import build_graph, list_graph_configs, parse_graph_yaml
 from tools.visualization import draw_graph
 
+logger = logging.getLogger(__name__)
 Mode = Literal["show", "save", "both"]
 
 
@@ -54,6 +57,12 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Output image path for save/both mode.",
     )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Enable verbose (DEBUG) logging.",
+    )
     return parser.parse_args()
 
 
@@ -83,9 +92,10 @@ def resolve_output_path(args: argparse.Namespace, config_name: str) -> Path | No
 def main() -> None:
     """Program entry point for drawing YAML graph presets."""
     args = parse_args()
+    setup_logging(__name__, verbose=args.verbose)
 
     if args.list:
-        print("Available presets:")
+        log_event(logger, logging.INFO, "Listing available graph presets", event="list_presets")
         for file_path in list_graph_configs(args.examples_dir):
             if file_path.stem == "graph_template":
                 continue
@@ -100,6 +110,14 @@ def main() -> None:
     mode: Mode = args.mode
     should_show = mode in {"show", "both"}
 
+    log_event(
+        logger,
+        logging.INFO,
+        f"Drawing graph: {config.name}",
+        event="draw_graph",
+        extra_fields={"graph_name": config.name, "show": should_show, "output_path": str(output_path) if output_path else None},
+    )
+
     draw_graph(
         graph=graph,
         title=config.title,
@@ -109,7 +127,13 @@ def main() -> None:
     )
 
     if output_path is not None:
-        print(f"Saved image: {output_path}")
+        log_event(
+            logger,
+            logging.INFO,
+            f"Image saved: {output_path}",
+            event="image_saved",
+            extra_fields={"path": str(output_path)},
+        )
 
 
 if __name__ == "__main__":

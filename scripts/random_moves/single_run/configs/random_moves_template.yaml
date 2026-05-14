@@ -1,6 +1,6 @@
 iterations: 200
 seed: 42
-log_path: results/logs/random_moves.jsonl
+log_path: scripts/random_moves/single_run/logs/random_moves.jsonl
 
 source:
   type: yaml # yaml | manual | atlas
