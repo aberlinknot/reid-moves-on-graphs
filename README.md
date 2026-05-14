@@ -2,12 +2,14 @@
 
 Исследовательский проект по изучению эквивалентности графов относительно движений Рейдемейстера (наследованных из теории узлов).
 
+> Проект разрабатывается и тестируется на Python 3.12.10 (другие версии не гарантируются).
+
 ## Цели
 - Формализация и программная реализация движений Рейдемейстера на графах
 - Автоматизация поиска классов эквивалентности
 - Проверка гипотез и проведение вычислительных экспериментов
 
-## Структура проекта
+- `articles/` — черновики, препринты, статьи (tex/pdf) и вспомогательная литература
 - `src/` — основной код (модули для работы с графами и движениями)
 - `tests/` — тесты
 - `docs/` — документация
@@ -15,8 +17,8 @@
 - `results/` — результаты запусков (например, сохранённые изображения)
 - `scripts/` — исследовательские и демонстрационные скрипты
 - `tools/` — утилиты (например, визуализация и запуск примеров)
-- `PLAN.md` — план работ
-- `requirements.txt` — зависимости
+- `requirements.txt` — основные зависимости
+- `requirements-dev.txt` — dev-зависимости для разработки
 
 
 ## Установка и настройка окружения
@@ -24,18 +26,23 @@
 1. Создайте виртуальное окружение (один из вариантов):
 	 - Windows (cmd):
 		 ```cmd
-		 python -m venv venv
-		 venv\Scripts\activate
+		 python -m venv .venv
+		 .venv\Scripts\activate
 		 ```
 	 - Windows (PowerShell):
 		 ```powershell
-		 python -m venv venv
-		 .\venv\Scripts\Activate.ps1
+		 python -m venv .venv
+		 .venv\Scripts\Activate.ps1
+		 ```
+	 - Windows (Git Bash):
+		 ```bash
+		 python -m venv .venv
+		 source .venv/Scripts/activate
 		 ```
 	 - Linux/macOS:
 		 ```bash
-		 python3 -m venv venv
-		 source venv/bin/activate
+		 python -m venv .venv
+		 source .venv/bin/activate
 		 ```
 
 2. Установите основные зависимости:
@@ -48,7 +55,7 @@
 	 pip install -r requirements-dev.txt
 	 ```
 
-4. Ознакомьтесь с планом: см. PLAN.md
+4. Ознакомьтесь с `RULES.md` и заметками в `docs/`
 5. Запустите примеры из scripts/ или создайте свой скрипт
 
 ## Быстрая визуализация из YAML
@@ -90,8 +97,11 @@ python scripts/run_random_moves.py --config examples/run_configs/random_moves_tr
 examples/run_configs/random_moves_template.yaml
 ```
 
+
 ## Документация
-Документация будет пополняться по мере развития проекта. Основные сведения — в Markdown-файлах в docs/ и docstring NumPy-стиля в коде.
+Документация будет пополняться по мере развития проекта. Основные сведения — в Markdown-файлах в `docs/` и docstring'ах в коде.
+
+Правила оформления и соглашения: см. [RULES.md](RULES.md)
 
 ---
 Проект находится в активной разработке.

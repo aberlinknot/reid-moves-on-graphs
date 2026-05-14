@@ -28,7 +28,7 @@ This is a research project on Reidemeister moves on graphs (inherited from knot 
 
 ## Code style
 - Line length: **100 characters** (enforced by black, isort, flake8).
-- Formatter: **black** (double quotes, no skip-string-normalization).
+- Formatter: **black** (prefer single quotes except docstrings, set `skip-string-normalization = true`).
 - Import order: **isort** with black profile.
 - Linter: **flake8** (ignore E203, W503).
 
