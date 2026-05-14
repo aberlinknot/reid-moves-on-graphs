@@ -6,7 +6,6 @@ import networkx as nx
 
 from src.objects.graph_base import BaseGraph, Node
 
-
 type GraphInput = nx.Graph | BaseGraph
 type GraphOutput = nx.Graph | BaseGraph
 

@@ -5,10 +5,12 @@ All code, comments, and docstrings must be in English (NumPy style).
 """
 
 from collections.abc import Hashable, Iterable
+
 import networkx as nx
 
 type Node = Hashable
 type Edge = tuple[Node, Node]
+
 
 class BaseGraph:
     """

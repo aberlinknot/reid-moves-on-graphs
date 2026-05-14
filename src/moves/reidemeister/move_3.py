@@ -6,13 +6,7 @@ from itertools import combinations
 
 from src.objects.graph_base import Node
 
-from ._common import (
-    GraphInput,
-    GraphOutput,
-    as_networkx,
-    to_output_type,
-    validate_distinct_nodes,
-)
+from ._common import GraphInput, GraphOutput, as_networkx, to_output_type, validate_distinct_nodes
 
 
 def check_move_3(graph: GraphInput, first: Node, second: Node, third: Node) -> bool:

@@ -7,8 +7,8 @@ All code, comments, and docstrings must be in English (NumPy style).
 from __future__ import annotations
 
 import argparse
-from pathlib import Path
 import sys
+from pathlib import Path
 from typing import Literal
 
 # Ensure project root is importable when running as a script.
@@ -16,8 +16,9 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.parsers.graph_yaml_parser import build_graph, list_graph_configs, parse_graph_yaml
 from visualization import draw_graph
+
+from src.parsers.graph_yaml_parser import build_graph, list_graph_configs, parse_graph_yaml
 
 Mode = Literal["show", "save", "both"]
 

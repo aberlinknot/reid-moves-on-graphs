@@ -7,13 +7,7 @@ from itertools import combinations
 
 from src.objects.graph_base import Node
 
-from ._common import (
-    GraphInput,
-    GraphOutput,
-    as_networkx,
-    to_output_type,
-    validate_distinct_nodes,
-)
+from ._common import GraphInput, GraphOutput, as_networkx, to_output_type, validate_distinct_nodes
 
 
 def check_move_2_remove(graph: GraphInput, left: Node, right: Node) -> bool:

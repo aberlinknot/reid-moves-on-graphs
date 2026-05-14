@@ -13,7 +13,6 @@ from pathlib import Path
 import networkx as nx
 import yaml
 
-
 Node = Hashable
 Edge = tuple[Node, Node]
 

@@ -25,7 +25,6 @@ from src.moves.reidemeister import (
 )
 from src.parsers.graph_yaml_parser import load_yaml_mapping
 
-
 MoveName = Literal["move_1_remove", "move_2_remove", "move_3"]
 
 

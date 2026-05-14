@@ -28,7 +28,6 @@ from src.moves.reidemeister import (
 )
 from src.parsers.graph_yaml_parser import Edge, build_graph, load_yaml_mapping, parse_graph_yaml
 
-
 MoveName = Literal["move_1_add", "move_1_remove", "move_2_add", "move_2_remove", "move_3"]
 SourceType = Literal["yaml", "manual", "atlas"]
 
@@ -191,7 +190,9 @@ def snapshot_graph(graph: nx.Graph) -> dict[str, object]:
     }
 
 
-def apply_random_move(rng: random.Random, graph: nx.Graph, move: MoveName) -> tuple[nx.Graph, bool, list[object] | None]:
+def apply_random_move(
+    rng: random.Random, graph: nx.Graph, move: MoveName
+) -> tuple[nx.Graph, bool, list[object] | None]:
     """Apply one randomly-instantiated move variant."""
     if move == "move_1_add":
         node = next_numeric_label(graph)
