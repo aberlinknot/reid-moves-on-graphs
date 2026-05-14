@@ -139,3 +139,6 @@ def main() -> None:
             extra_fields={"path": str(output_path)},
         )
 
+
+if __name__ == "__main__":
+    main()

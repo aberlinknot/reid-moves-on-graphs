@@ -46,7 +46,7 @@ def to_output_type(source: GraphInput, updated_graph: nx.Graph) -> GraphOutput:
         nx.Graph for nx.Graph input, BaseGraph for BaseGraph input.
     """
     if isinstance(source, BaseGraph):
-        return BaseGraph.from_networkx(updated_graph)
+        return source.__class__.from_networkx(updated_graph)
     return updated_graph
 
 

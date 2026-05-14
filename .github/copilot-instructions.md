@@ -36,7 +36,7 @@ This is a research project on Reidemeister moves on graphs (inherited from knot 
 ## CLI execution policy (module-only)
 - All CLI scripts (utilities, analyzers, visualizations) **must be executed only as modules** via `python -m <module>`.
 - Direct file execution (`python scripts/...py`, `python tools/...py`) is **not supported** and must not appear in documentation or usage examples.
-- No CLI script should contain an `if __name__ == "__main__": ...` block.
+- CLI modules may (and should) contain an `if __name__ == "__main__": ...` block to support execution via `python -m`.
 - All usage examples and documentation must use only module-based invocation.
 
 ## Project structure

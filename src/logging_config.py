@@ -31,8 +31,9 @@ class JSONFormatter(logging.Formatter):
             log_data["event"] = record.event
         if hasattr(record, "run_id"):
             log_data["run_id"] = record.run_id
-        if hasattr(record, "extra_fields") and record.extra_fields:
-            log_data.update(record.extra_fields)
+        if hasattr(record, 'extra_fields') and record.extra_fields:
+            # Keep custom fields namespaced to avoid overwriting reserved keys.
+            log_data['extra_fields'] = record.extra_fields
 
         # Include exception info if present
         if record.exc_info:

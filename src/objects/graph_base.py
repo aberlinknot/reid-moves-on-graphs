@@ -48,7 +48,7 @@ class BaseGraph:
 
     def copy(self) -> "BaseGraph":
         """Return an independent shallow copy of the wrapped graph object."""
-        return BaseGraph.from_networkx(self.nx_graph)
+        return self.__class__.from_networkx(self.nx_graph)
 
     def add_node(self, node: Node, **attr: object) -> None:
         """Add a single node to the graph."""

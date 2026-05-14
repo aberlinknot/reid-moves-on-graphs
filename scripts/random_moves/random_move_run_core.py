@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 import random
 from dataclasses import dataclass
 from pathlib import Path
@@ -35,6 +36,11 @@ def _is_int_not_bool(value: object) -> bool:
 def _is_number_not_bool(value: object) -> bool:
     """Return True for int/float values, excluding booleans."""
     return isinstance(value, (int, float)) and not isinstance(value, bool)
+
+
+def _is_finite_number_not_bool(value: object) -> bool:
+    """Return True for finite int/float values, excluding booleans."""
+    return _is_number_not_bool(value) and math.isfinite(float(value))
 
 
 @dataclass(frozen=True)
@@ -70,7 +76,7 @@ def parse_move_weights(
     weights: dict[MoveName, float] = {}
     for move in required_moves:
         value = weights_raw.get(move)
-        if not _is_number_not_bool(value) or value < 0:
+        if not _is_finite_number_not_bool(value) or value < 0:
             raise ValueError(f"Weight for '{move}' must be non-negative numeric value.")
         weights[move] = float(value)
 
