@@ -37,8 +37,8 @@ from src.logging_config import setup_logging, log_event
 logger = logging.getLogger(__name__)
 
 def main():
-  setup_logging(__name__, log_file=Path("logs/process.jsonl"))  # Инициализировать на входе
-    
+    setup_logging(__name__, log_file=Path("logs/process.jsonl"))  # Инициализировать на входе
+
     log_event(
         logger,
         logging.INFO,
@@ -57,15 +57,15 @@ logger = logging.getLogger(__name__)
 
 def my_function():
     logger.info("Something happened")  # Обычное логирование
-    
+
     # Или структурированное
-    record = logger.makeRecord(
-        logger.name, logging.INFO, "(unknown)", 0,
-        "Event happened", (), None
-    )
-    record.event = "my_event"
-    record.run_id = "run_123"
-    logger.handle(record)
+  log_event(
+    logger,
+    logging.INFO,
+    "Event happened",
+    event="my_event",
+    run_id="run_123",
+  )
 ```
 
 ## Уровни логирования
@@ -88,7 +88,7 @@ def my_function():
 - `event` — тип события (например, "run_completed", "scan_started")
 - `run_id` — идентификатор запуска для корреляции
 - `exception` — информация об исключении (если есть)
-- Любые поля из `extra_fields` (пробрасываются в JSON)
+- `extra_fields` — объект с пользовательскими полями
 
 ## Пример: Random Moves
 
@@ -96,8 +96,8 @@ def my_function():
 
 ```python
 def main():
-  setup_logging(__name__, log_file=config.log_path)  # Инициализировать
-    
+    setup_logging(__name__, verbose=args.verbose)  # Инициализировать
+
     log_event(
         logger,
         logging.INFO,
@@ -106,6 +106,9 @@ def main():
         run_id=source_name,
     )
 ```
+
+  Примечание: JSONL с результатами random walks пишется отдельно через `config.log_path`
+  в коде runner-а, а не через `setup_logging(log_file=...)`.
 
 Вывод в консоль:
 ```
@@ -185,14 +188,14 @@ python -m scripts.random_moves.atlas_run.random_move_atlas_run \
 Вывод:
 ```
 [18:30:17] [INFO    ] __main__ | event=scan_start
-  Starting atlas scan: random_moves_atlas_scan. Graphs to process: 1202
+  Starting atlas scan: random_moves_atlas_scan. Graphs to process: 1253
 [18:30:17] [INFO    ] __main__ | event=graph_extinction | run_id=atlas:0
-  Graph 1/1202 (atlas:0) reached extinction at iteration 5
+  Graph 1/1253 (atlas:0) reached extinction at iteration 5
 [18:30:17] [INFO    ] __main__ | event=graph_extinction | run_id=atlas:1
-  Graph 2/1202 (atlas:1) reached extinction at iteration 12
+  Graph 2/1253 (atlas:1) reached extinction at iteration 12
 ...
 [18:30:45] [INFO    ] __main__ | event=scan_completed
-  Scan completed. Graphs processed: 1202, success count (reached <=1 node): 1195
+  Scan completed. Graphs processed: 1253, success count (reached <=1 node): 1195
 ```
 
 ### Режим DEBUG (с флагом -v/--verbose)
@@ -208,15 +211,15 @@ python -m scripts.random_moves.atlas_run.random_move_atlas_run \
 Вывод:
 ```
 [18:30:17] [INFO    ] __main__ | event=scan_start
-  Starting atlas scan: random_moves_atlas_scan. Graphs to process: 1202
+  Starting atlas scan: random_moves_atlas_scan. Graphs to process: 1253
 [18:30:17] [DEBUG   ] __main__ | event=graph_start | run_id=atlas:0
-  Processing graph 1/1202: atlas_index=0, nodes=0, edges=0
+  Processing graph 1/1253: atlas_index=0, nodes=0, edges=0
 [18:30:17] [INFO    ] __main__ | event=graph_extinction | run_id=atlas:0
-  Graph 1/1202 (atlas:0) reached extinction at iteration 5
+  Graph 1/1253 (atlas:0) reached extinction at iteration 5
 [18:30:17] [DEBUG   ] __main__ | event=graph_start | run_id=atlas:1
-  Processing graph 2/1202: atlas_index=1, nodes=1, edges=0
+  Processing graph 2/1253: atlas_index=1, nodes=1, edges=0
 [18:30:17] [INFO    ] __main__ | event=graph_extinction | run_id=atlas:1
-  Graph 2/1202 (atlas:1) reached extinction at iteration 12
+  Graph 2/1253 (atlas:1) reached extinction at iteration 12
 ...
 ```
 

@@ -115,11 +115,14 @@ def setup_logging(
         level = logging.DEBUG
 
     logger.setLevel(level)
-    logger.handlers.clear()
+    for handler in list(logger.handlers):
+        logger.removeHandler(handler)
+        handler.close()
+    logger.propagate = False
 
     # Console handler (pretty output)
     if console:
-        console_handler = logging.StreamHandler(sys.stdout)
+        console_handler = logging.StreamHandler(sys.stderr)
         console_handler.setLevel(level)
         console_handler.setFormatter(ConsoleFormatter())
         logger.addHandler(console_handler)
@@ -160,20 +163,15 @@ def log_event(
     extra_fields : dict[str, object] | None, optional
         Additional fields to include in JSON log.
     """
-    record = logger.makeRecord(
-        logger.name,
-        level,
-        "(unknown file)",
-        0,
-        message,
-        (),
-        None,
-    )
-    if event:
-        record.event = event
-    if run_id:
-        record.run_id = run_id
-    if extra_fields:
-        record.extra_fields = extra_fields
+    if not logger.isEnabledFor(level):
+        return
 
-    logger.handle(record)
+    extra: dict[str, object] = {}
+    if event:
+        extra['event'] = event
+    if run_id:
+        extra['run_id'] = run_id
+    if extra_fields:
+        extra['extra_fields'] = extra_fields
+
+    logger.log(level, message, extra=extra)
