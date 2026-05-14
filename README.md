@@ -62,33 +62,33 @@
 Для редактируемого набора базовых графов используйте директорию `examples/graphs/` и скрипт:
 
 ```bash
-python tools/draw_examples.py --name triangle
+python -m tools.draw_examples --name triangle
 ```
 
 Чтобы посмотреть список доступных графов:
 
 ```bash
-python tools/draw_examples.py --list
+python -m tools.draw_examples --list
 ```
 
 Сохранить рисунок в `results/images/` без открытия окна:
 
 ```bash
-python tools/draw_examples.py --name triangle --mode save
-python tools/draw_examples.py --name square_with_diagonal --mode save
+python -m tools.draw_examples --name triangle --mode save
+python -m tools.draw_examples --name square_with_diagonal --mode save
 ```
 
 Сохранить и показать одновременно:
 
 ```bash
-python tools/draw_examples.py --name triangle --mode both
+python -m tools.draw_examples --name triangle --mode both
 ```
 
 ## Случайные движения с весами
 Для длинного цикла случайных движений используйте:
 
 ```bash
-python scripts/run_random_moves.py --config examples/run_configs/random_moves_triangle.yaml
+python -m scripts.run_random_moves --config examples/run_configs/random_moves_triangle.yaml
 ```
 
 Шаблон полного конфига с источниками `yaml/manual/atlas`:
