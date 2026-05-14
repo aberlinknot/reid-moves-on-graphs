@@ -1,0 +1,14 @@
+iterations: 50
+seed: 7
+log_path: scripts/random_moves/single_run/logs/random_moves_triangle.jsonl
+
+source:
+  type: yaml
+  yaml_path: examples/graphs/triangle.yaml
+
+weights:
+  move_1_add: 0.10
+  move_1_remove: 0.10
+  move_2_add: 0.20
+  move_2_remove: 0.20
+  move_3: 0.40

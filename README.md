@@ -2,83 +2,89 @@
 
 Исследовательский проект по изучению эквивалентности графов относительно движений Рейдемейстера (наследованных из теории узлов).
 
+> Проект разрабатывается и тестируется на Python 3.12.10 (другие версии не гарантируются).
+
 ## Цели
 - Формализация и программная реализация движений Рейдемейстера на графах
 - Автоматизация поиска классов эквивалентности
 - Проверка гипотез и проведение вычислительных экспериментов
 
 ## Структура проекта
+
+- `articles/` — черновики, препринты, статьи (tex/pdf) и вспомогательная литература
 - `src/` — основной код (модули для работы с графами и движениями)
 - `tests/` — тесты
 - `docs/` — документация
 - `examples/` — набор YAML-конфигов графов (по одному файлу на граф)
 - `results/` — результаты запусков (например, сохранённые изображения)
-- `scripts/` — исследовательские и демонстрационные скрипты
+- `scripts/` — исследовательские и демонстрационные скрипты, конфиги и логи экспериментов
 - `tools/` — утилиты (например, визуализация и запуск примеров)
-- `PLAN.md` — план работ
-- `requirements.txt` — зависимости
+- `requirements.txt` — основные зависимости
+- `requirements-dev.txt` — dev-зависимости для разработки
 
 
-## Установка и настройка окружения
+## Установка и настройка
 
-1. Создайте виртуальное окружение (один из вариантов):
-	 - Windows (cmd):
-		 ```cmd
-		 python -m venv venv
-		 venv\Scripts\activate
-		 ```
-	 - Windows (PowerShell):
-		 ```powershell
-		 python -m venv venv
-		 .\venv\Scripts\Activate.ps1
-		 ```
-	 - Linux/macOS:
-		 ```bash
-		 python3 -m venv venv
-		 source venv/bin/activate
-		 ```
-
-2. Установите основные зависимости:
-	 ```bash
-	 pip install -r requirements.txt
-	 ```
-
-3. (Рекомендуется) Установите dev-зависимости:
-	 ```bash
-	 pip install -r requirements-dev.txt
-	 ```
-
-4. Ознакомьтесь с планом: см. PLAN.md
-5. Запустите примеры из scripts/ или создайте свой скрипт
-
-## Быстрая визуализация из YAML
-Для редактируемого набора базовых графов используйте директорию `examples/graphs/` и скрипт:
+Минимальный пример (Python 3.12.10):
 
 ```bash
-python tools/draw_examples.py --name triangle
+python -m venv .venv
+source .venv/bin/activate  # или .venv\Scripts\activate для Windows
+pip install -r requirements.txt
 ```
 
-Чтобы посмотреть список доступных графов:
+Подробная инструкция: [docs/user/install.md](docs/user/install.md)
 
+## Визуализация графов
+
+Пример:
 ```bash
-python tools/draw_examples.py --list
+python -m tools.draw_examples --name triangle
 ```
+Подробно: [docs/user/cli/visualization.md](docs/user/cli/visualization.md)
 
-Сохранить рисунок в `results/images/` без открытия окна:
+## Случайные движения (random walks)
 
+Пример одиночного прогона:
 ```bash
-python tools/draw_examples.py --name triangle --mode save
-python tools/draw_examples.py --name square_with_diagonal --mode save
+python -m scripts.random_moves.single_run.random_move_single_run \
+	--config scripts/random_moves/single_run/configs/random_moves_triangle.yaml
 ```
-
-Сохранить и показать одновременно:
-
+Пример пакетного сканирования:
 ```bash
-python tools/draw_examples.py --name triangle --mode both
+python -m scripts.random_moves.atlas_run.random_move_atlas_run \
+	--config scripts/random_moves/atlas_run/configs/random_moves_atlas_scan.yaml
 ```
+Подробно: [docs/user/cli/random_walks.md](docs/user/cli/random_walks.md)
 
 ## Документация
-Документация будет пополняться по мере развития проекта. Основные сведения — в Markdown-файлах в docs/ и docstring NumPy-стиля в коде.
+
+- [Установка и настройка](docs/user/install.md)
+- [Инструкции по CLI](docs/user/cli/)
+- [Конфигурация](docs/user/configs.md) и [логи](docs/user/logs.md)
+- [Математическая часть](docs/math/)
+- [Техническая часть](docs/dev/)
+
+Примечание по формулам: GitHub поддерживает LaTeX в Markdown (`$...$`, `$$...$$`), но часть сложных
+конструкций может отображаться нестабильно. Для корректного локального просмотра используйте
+Markdown Preview в VS Code.
+
+Проект использует структурированное логирование через встроенный модуль `logging` с кастомным JSON форматированием.
+
+**Консоль** — красивый вывод с цветами:
+```
+[18:23:43] [INFO    ] module_name | event=process_started | run_id=run_123
+  Process started successfully
+```
+
+**Файлы** — JSONL формат (строка = одна запись JSON) для анализа и фильтрации:
+```json
+{"timestamp": "2026-05-14 18:23:43", "level": "INFO", "logger": "scripts.module", "message": "Process started", "event": "process_started", "run_id": "run_123"}
+```
+
+Подробнее: [docs/dev/logging.md](docs/dev/logging.md)
+
+Правила оформления и соглашения: см. [RULES.md](RULES.md)
 
 ---
 Проект находится в активной разработке.

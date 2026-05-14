@@ -5,10 +5,12 @@ All code, comments, and docstrings must be in English (NumPy style).
 """
 
 from collections.abc import Hashable, Iterable
+
 import networkx as nx
 
 type Node = Hashable
 type Edge = tuple[Node, Node]
+
 
 class BaseGraph:
     """
@@ -24,6 +26,29 @@ class BaseGraph:
 
     def __init__(self, data: Iterable[Edge] | None = None, **attr: object) -> None:
         self.nx_graph: nx.Graph = nx.Graph(data, **attr)
+
+    @classmethod
+    def from_networkx(cls, graph: nx.Graph) -> "BaseGraph":
+        """
+        Build BaseGraph from an existing networkx.Graph.
+
+        Parameters
+        ----------
+        graph : nx.Graph
+            Source graph.
+
+        Returns
+        -------
+        BaseGraph
+            New wrapper over an independent shallow copy of the source graph.
+        """
+        instance = cls()
+        instance.nx_graph = graph.copy()
+        return instance
+
+    def copy(self) -> "BaseGraph":
+        """Return an independent shallow copy of the wrapped graph object."""
+        return self.__class__.from_networkx(self.nx_graph)
 
     def add_node(self, node: Node, **attr: object) -> None:
         """Add a single node to the graph."""

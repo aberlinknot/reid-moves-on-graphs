@@ -13,7 +13,6 @@ from pathlib import Path
 import networkx as nx
 import yaml
 
-
 Node = Hashable
 Edge = tuple[Node, Node]
 
@@ -44,6 +43,34 @@ class GraphConfig:
     edges: list[Edge]
 
 
+def load_yaml_mapping(path: Path) -> dict[str, object]:
+    """
+    Load YAML file and validate mapping root.
+
+    Parameters
+    ----------
+    path : Path
+        Path to YAML file.
+
+    Returns
+    -------
+    dict[str, object]
+        Parsed mapping.
+
+    Raises
+    ------
+    ValueError
+        If YAML root is not a mapping.
+    """
+    with path.open("r", encoding="utf-8") as file:
+        raw = yaml.safe_load(file)
+
+    if not isinstance(raw, dict):
+        raise ValueError(f"{path}: root must be a mapping.")
+
+    return raw
+
+
 def parse_graph_yaml(path: Path) -> GraphConfig:
     """
     Parse one graph YAML file into a validated GraphConfig.
@@ -63,11 +90,7 @@ def parse_graph_yaml(path: Path) -> GraphConfig:
     ValueError
         If the YAML structure is invalid.
     """
-    with path.open("r", encoding="utf-8") as file:
-        raw = yaml.safe_load(file)
-
-    if not isinstance(raw, dict):
-        raise ValueError(f"{path}: root must be a mapping.")
+    raw = load_yaml_mapping(path)
 
     name_raw = raw.get("name", path.stem)
     if not isinstance(name_raw, str) or not name_raw:

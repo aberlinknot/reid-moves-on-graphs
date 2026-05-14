@@ -1,7 +1,5 @@
-"""
-Stub for Reidemeister moves module.
+"""Move modules for graph transformations."""
 
-All code, comments, and docstrings must be in English (NumPy style).
-"""
+from . import reidemeister
 
-# Functions for Reidemeister moves will be implemented here.
+__all__ = ["reidemeister"]

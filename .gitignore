@@ -26,3 +26,14 @@ dist/
 # Generated result images (keep directory structure)
 results/images/*
 !results/images/.gitkeep
+
+# Generated experiment logs (keep directory structure)
+results/logs/*
+!results/logs/.gitkeep
+
+# Temporary / unsure files – not ready to delete permanently
+junk/
+
+# Random move experiment logs (keep directory structure, add manually)
+scripts/random_moves/*/logs/*
+!scripts/random_moves/*/logs/.gitkeep

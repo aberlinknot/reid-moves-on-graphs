@@ -28,9 +28,16 @@ This is a research project on Reidemeister moves on graphs (inherited from knot 
 
 ## Code style
 - Line length: **100 characters** (enforced by black, isort, flake8).
-- Formatter: **black** (double quotes, no skip-string-normalization).
+- Formatter: **black** (prefer single quotes except docstrings, set `skip-string-normalization = true`).
 - Import order: **isort** with black profile.
 - Linter: **flake8** (ignore E203, W503).
+
+
+## CLI execution policy (module-only)
+- All CLI scripts (utilities, analyzers, visualizations) **must be executed only as modules** via `python -m <module>`.
+- Direct file execution (`python scripts/...py`, `python tools/...py`) is **not supported** and must not appear in documentation or usage examples.
+- CLI modules may (and should) contain an `if __name__ == "__main__": ...` block to support execution via `python -m`.
+- All usage examples and documentation must use only module-based invocation.
 
 ## Project structure
 - `src/` — core source modules (graph objects, parsers, moves).
