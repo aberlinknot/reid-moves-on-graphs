@@ -50,7 +50,9 @@ class AtlasScanConfig:
     limit: int | None
 
 
-def parse_move_weights(weights_raw: object, required_moves: tuple[MoveName, ...]) -> dict[MoveName, float]:
+def parse_move_weights(
+    weights_raw: object, required_moves: tuple[MoveName, ...]
+) -> dict[MoveName, float]:
     """Validate and normalize move weights from a YAML mapping."""
     if not isinstance(weights_raw, dict):
         raise ValueError("Config must contain mapping 'weights'.")
@@ -119,7 +121,9 @@ def parse_atlas_scan_config(path: Path) -> AtlasScanConfig:
     if seed_raw is not None and not isinstance(seed_raw, int):
         raise ValueError("'seed' must be an integer or null.")
 
-    log_path_raw = raw.get("log_path", "scripts/random_moves/atlas_run/logs/random_moves_atlas_scan.jsonl")
+    log_path_raw = raw.get(
+        "log_path", "scripts/random_moves/atlas_run/logs/random_moves_atlas_scan.jsonl"
+    )
     if not isinstance(log_path_raw, str) or not log_path_raw:
         raise ValueError("'log_path' must be a non-empty string.")
     log_path = Path(log_path_raw)

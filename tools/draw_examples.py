@@ -115,7 +115,11 @@ def main() -> None:
         logging.INFO,
         f"Drawing graph: {config.name}",
         event="draw_graph",
-        extra_fields={"graph_name": config.name, "show": should_show, "output_path": str(output_path) if output_path else None},
+        extra_fields={
+            "graph_name": config.name,
+            "show": should_show,
+            "output_path": str(output_path) if output_path else None,
+        },
     )
 
     draw_graph(

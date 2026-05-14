@@ -8,7 +8,12 @@ from pathlib import Path
 
 from src.logging_config import log_event, setup_logging
 
-from ..random_move_run_core import dumps_record, iter_atlas_graphs, parse_atlas_scan_config, run_random_walk
+from ..random_move_run_core import (
+    dumps_record,
+    iter_atlas_graphs,
+    parse_atlas_scan_config,
+    run_random_walk,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -68,7 +73,7 @@ def run(config_path: Path) -> None:
         success_count = 0
         for graph_num, (atlas_index, graph) in enumerate(indexed_graphs, 1):
             run_id = f"atlas:{atlas_index}"
-            
+
             # Log progress
             log_event(
                 logger,
@@ -79,7 +84,7 @@ def run(config_path: Path) -> None:
                 run_id=run_id,
                 extra_fields={"graph_num": graph_num, "total_graphs": len(indexed_graphs)},
             )
-            
+
             summary = run_random_walk(
                 graph=graph,
                 iterations=config.iterations,
@@ -94,14 +99,16 @@ def run(config_path: Path) -> None:
                 },
                 on_record=lambda record: log_file.write(dumps_record(record) + "\n"),
             )
-            
+
             if summary["reached_extinction"]:
                 success_count += 1
                 log_event(
                     logger,
                     logging.INFO,
-                    f"Graph {graph_num}/{len(indexed_graphs)} (atlas:{atlas_index}) reached extinction at "
-                    f"iteration {summary['extinct_iteration']}",
+                    (
+                        f"Graph {graph_num}/{len(indexed_graphs)} (atlas:{atlas_index}) "
+                        f"reached extinction at iteration {summary['extinct_iteration']}"
+                    ),
                     event="graph_extinction",
                     run_id=run_id,
                     extra_fields={
@@ -114,8 +121,10 @@ def run(config_path: Path) -> None:
                 log_event(
                     logger,
                     logging.DEBUG,
-                    f"Graph {graph_num}/{len(indexed_graphs)} (atlas:{atlas_index}) did not reach extinction. "
-                    f"Final nodes: {summary['final_nodes']}",
+                    (
+                        f"Graph {graph_num}/{len(indexed_graphs)} (atlas:{atlas_index}) "
+                        f"did not reach extinction. Final nodes: {summary['final_nodes']}"
+                    ),
                     event="graph_completed",
                     run_id=run_id,
                     extra_fields={

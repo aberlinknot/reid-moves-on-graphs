@@ -8,7 +8,12 @@ from pathlib import Path
 
 from src.logging_config import log_event, setup_logging
 
-from ..random_move_run_core import dumps_record, load_initial_graph, parse_run_config, run_random_walk
+from ..random_move_run_core import (
+    dumps_record,
+    load_initial_graph,
+    parse_run_config,
+    run_random_walk,
+)
 
 logger = logging.getLogger(__name__)
 

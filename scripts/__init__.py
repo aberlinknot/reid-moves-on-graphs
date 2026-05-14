@@ -1,1 +1,16 @@
-"""CLI entry points for project scripts."""
+"""CLI entry points for project scripts.
+
+This package contains executable scripts for graph analysis, visualization,
+and Reidemeister move research:
+
+- ``atlas_analysis``: Compute statistics on the NetworkX graph atlas and
+  summarize metrics by vertex count.
+- ``parity_bracket``: Analyze parity bracket invariants.
+- ``random_moves``: Run random Reidemeister move sequences.
+
+All scripts can be run as modules::
+
+    python -m scripts.atlas_analysis
+    python -m scripts.summarize_atlas_by_vertices
+    python -m scripts.random_moves
+"""

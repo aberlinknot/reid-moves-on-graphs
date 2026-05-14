@@ -1,0 +1,9 @@
+num_vertices,num_graphs,num_connected_graphs,num_stuck_graphs,num_iii_classes,num_stuck_iii_classes,num_graphs_in_stuck_iii_classes
+0,1,0,1,1,1,1
+1,1,1,0,1,0,0
+2,2,1,0,2,0,0
+3,4,2,0,2,0,0
+4,11,6,1,6,0,0
+5,34,21,5,12,0,0
+6,156,112,31,51,9,16
+7,1044,853,293,318,92,205

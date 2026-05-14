@@ -108,11 +108,11 @@ def setup_logging(
         Configured logger instance.
     """
     logger = logging.getLogger(name)
-    
+
     # Use DEBUG if verbose flag is set
     if verbose:
         level = logging.DEBUG
-    
+
     logger.setLevel(level)
     logger.handlers.clear()
 
