@@ -21,124 +21,44 @@
 - `requirements-dev.txt` — dev-зависимости для разработки
 
 
-## Установка и настройка окружения
+## Установка и настройка
 
-1. Создайте виртуальное окружение (один из вариантов):
-	 - Windows (cmd):
-		 ```cmd
-		 python -m venv .venv
-		 .venv\Scripts\activate
-		 ```
-	 - Windows (PowerShell):
-		 ```powershell
-		 python -m venv .venv
-		 .venv\Scripts\Activate.ps1
-		 ```
-	 - Windows (Git Bash):
-		 ```bash
-		 python -m venv .venv
-		 source .venv/Scripts/activate
-		 ```
-	 - Linux/macOS:
-		 ```bash
-		 python -m venv .venv
-		 source .venv/bin/activate
-		 ```
+Минимальный пример (Python 3.12.10):
 
-2. Установите основные зависимости:
-	 ```bash
-	 pip install -r requirements.txt
-	 ```
+```bash
+python -m venv .venv
+source .venv/bin/activate  # или .venv\Scripts\activate для Windows
+pip install -r requirements.txt
+```
 
-3. (Рекомендуется) Установите dev-зависимости:
-	 ```bash
-	 pip install -r requirements-dev.txt
-	 ```
+Подробная инструкция: [docs/user/install.md](docs/user/install.md)
 
-4. Ознакомьтесь с `RULES.md` и заметками в `docs/`
-5. Запустите примеры из scripts/ или создайте свой скрипт
+## Визуализация графов
 
-## Быстрая визуализация из YAML
-Для редактируемого набора базовых графов используйте директорию `examples/graphs/` и скрипт:
-
+Пример:
 ```bash
 python -m tools.draw_examples --name triangle
 ```
+Подробно: [docs/user/visualization.md](docs/user/visualization.md)
 
-Чтобы посмотреть список доступных графов:
+## Случайные движения (random walks)
 
-```bash
-python -m tools.draw_examples --list
-```
-
-Сохранить рисунок в `results/images/` без открытия окна:
-
-```bash
-python -m tools.draw_examples --name triangle --mode save
-python -m tools.draw_examples --name square_with_diagonal --mode save
-```
-
-Сохранить и показать одновременно:
-
-```bash
-python -m tools.draw_examples --name triangle --mode both
-```
-
-## Случайные движения с весами
-
-**Одиночный прогон** с треугольником (50 итераций):
-
+Пример одиночного прогона:
 ```bash
 python -m scripts.random_moves.single_run.random_move_single_run \
-  --config scripts/random_moves/single_run/configs/random_moves_triangle.yaml
+	--config scripts/random_moves/single_run/configs/random_moves_triangle.yaml
 ```
-
-Шаблон полного конфига с примерами источников `yaml`, `manual`, `atlas`:
-
-```text
-scripts/random_moves/single_run/configs/random_moves_template.yaml
-```
-
-**Пакетный скан atlas** (все графы):
-
+Пример пакетного сканирования:
 ```bash
 python -m scripts.random_moves.atlas_run.random_move_atlas_run \
-  --config scripts/random_moves/atlas_run/configs/random_moves_atlas_scan.yaml
+	--config scripts/random_moves/atlas_run/configs/random_moves_atlas_scan.yaml
 ```
+Подробно: [docs/user/random_walks.md](docs/user/random_walks.md)
+## Документация
 
-**Пакетный скан 6-вершинных графов** (reduction-only с нулевыми весами add-ходов):
-
-```bash
-python -m scripts.random_moves.atlas_run.random_move_atlas_run \
-  --config scripts/random_moves/atlas_run/configs/random_moves_atlas_scan_6_vertices.yaml
-```
-
-Логи сохраняются в JSONL-формате в:
-- `scripts/random_moves/single_run/logs/` — для одиночных прогонов
-- `scripts/random_moves/atlas_run/logs/` — для пакетных сканов
-
-Для просмотра **прогресса** длительных операций используйте флаг `--verbose` (или `-v`):
-
-```bash
-python -m scripts.random_moves.atlas_run.random_move_atlas_run \
-  --config scripts/random_moves/atlas_run/configs/random_moves_atlas_scan.yaml \
-  --verbose
-```
-
-Вывод прогресса (INFO уровень по умолчанию):
-```
-[HH:MM:SS] [INFO    ] __main__ | event=graph_extinction | run_id=atlas:0
-  Graph 1/1202 (atlas:0) reached extinction at iteration 5
-```
-
-С `--verbose` добавляется полная информация о каждом графе (DEBUG уровень).
-
-**Анализ логов** — подсчёт минимума, максимума и среднего числа вершин:
-
-```bash
-python -m scripts.random_moves.summarize_random_moves \
-  --log scripts/random_moves/single_run/logs/random_moves_triangle.jsonl
-```
+- [Пользовательские инструкции (user)](docs/user/README.md)
+- [Математическая часть (math)](docs/math/)
+- [Техническая часть (dev)](docs/dev/)
 
 Вывод показывает статистику по всем итерациям, а при наличии нескольких run_id в логе — отдельно по каждому.
 
