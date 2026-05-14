@@ -33,3 +33,7 @@ results/logs/*
 
 # Temporary / unsure files – not ready to delete permanently
 junk/
+
+# Random move experiment logs (keep directory structure, add manually)
+scripts/random_moves/*/logs/*
+!scripts/random_moves/*/logs/.gitkeep

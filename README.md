@@ -9,6 +9,8 @@
 - Автоматизация поиска классов эквивалентности
 - Проверка гипотез и проведение вычислительных экспериментов
 
+## Структура проекта
+
 - `articles/` — черновики, препринты, статьи (tex/pdf) и вспомогательная литература
 - `src/` — основной код (модули для работы с графами и движениями)
 - `tests/` — тесты
@@ -39,7 +41,7 @@ pip install -r requirements.txt
 ```bash
 python -m tools.draw_examples --name triangle
 ```
-Подробно: [docs/user/visualization.md](docs/user/visualization.md)
+Подробно: [docs/user/cli/visualization.md](docs/user/cli/visualization.md)
 
 ## Случайные движения (random walks)
 
@@ -53,16 +55,19 @@ python -m scripts.random_moves.single_run.random_move_single_run \
 python -m scripts.random_moves.atlas_run.random_move_atlas_run \
 	--config scripts/random_moves/atlas_run/configs/random_moves_atlas_scan.yaml
 ```
-Подробно: [docs/user/random_walks.md](docs/user/random_walks.md)
+Подробно: [docs/user/cli/random_walks.md](docs/user/cli/random_walks.md)
+
 ## Документация
 
-- [Пользовательские инструкции (user)](docs/user/README.md)
-- [Математическая часть (math)](docs/math/)
-- [Техническая часть (dev)](docs/dev/)
+- [Установка и настройка](docs/user/install.md)
+- [Инструкции по CLI](docs/user/cli/)
+- [Конфигурация](docs/user/configs.md) и [логи](docs/user/logs.md)
+- [Математическая часть](docs/math/)
+- [Техническая часть](docs/dev/)
 
-Вывод показывает статистику по всем итерациям, а при наличии нескольких run_id в логе — отдельно по каждому.
-
-## Логирование
+Примечание по формулам: GitHub поддерживает LaTeX в Markdown (`$...$`, `$$...$$`), но часть сложных
+конструкций может отображаться нестабильно. Для корректного локального просмотра используйте
+Markdown Preview в VS Code.
 
 Проект использует структурированное логирование через встроенный модуль `logging` с кастомным JSON форматированием.
 
@@ -77,10 +82,7 @@ python -m scripts.random_moves.atlas_run.random_move_atlas_run \
 {"timestamp": "2026-05-14 18:23:43", "level": "INFO", "logger": "scripts.module", "message": "Process started", "event": "process_started", "run_id": "run_123"}
 ```
 
-Подробнее: [docs/logging.md](docs/logging.md)
-
-## Документация
-Документация будет пополняться по мере развития проекта. Основные сведения — в Markdown-файлах в `docs/` и docstring'ах в коде.
+Подробнее: [docs/dev/logging.md](docs/dev/logging.md)
 
 Правила оформления и соглашения: см. [RULES.md](RULES.md)
 
