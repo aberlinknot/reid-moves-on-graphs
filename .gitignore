@@ -30,3 +30,6 @@ results/images/*
 # Generated experiment logs (keep directory structure)
 results/logs/*
 !results/logs/.gitkeep
+
+# Temporary / unsure files – not ready to delete permanently
+junk/
