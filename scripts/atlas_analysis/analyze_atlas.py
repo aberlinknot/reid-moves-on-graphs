@@ -405,6 +405,3 @@ def main() -> None:
 
     print(f'Analysis table written: {args.analysis_output} ({len(analysis_df)} rows)')
 
-
-if __name__ == '__main__':
-    main()

@@ -18,11 +18,11 @@ python -m scripts.random_moves.summarize_random_moves \
 ## Фильтрация событий
 
 ```bash
-# Все события extinction
-cat scripts/random_moves/atlas_run/logs/random_moves_atlas_scan.jsonl | grep 'graph_extinction'
+# Все завершения запусков по графам
+cat scripts/random_moves/atlas_run/logs/random_moves_atlas_scan.jsonl | grep '"event": "run_end"'
 
 # С помощью jq
-cat scripts/random_moves/atlas_run/logs/random_moves_atlas_scan.jsonl | jq 'select(.event == "graph_extinction")'
+cat scripts/random_moves/atlas_run/logs/random_moves_atlas_scan.jsonl | jq 'select(.event == "run_end" and .reached_extinction == true)'
 ```
 
 ## Пример вывода

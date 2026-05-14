@@ -145,11 +145,12 @@ def apply_move_2_add(
     ValueError
         If move #2 add conditions are not satisfied.
     """
-    if not check_move_2_add(graph, left, right, neighbors):
+    neighbor_list = list(neighbors)
+    if not check_move_2_add(graph, left, right, neighbor_list):
         raise ValueError("Move #2 add conditions are not satisfied.")
 
     validate_distinct_nodes(left, right)
-    neighbor_set = set(neighbors)
+    neighbor_set = set(neighbor_list)
 
     nx_graph = as_networkx(graph)
     updated = nx_graph.copy()

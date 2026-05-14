@@ -45,5 +45,4 @@ weights:
 - `source` — описание исходного графа (yaml/manual/atlas)
 - `weights` — веса для каждого типа движения
 - `scan.node_count` — фильтр по числу вершин (atlas scan)
-- `scan.limit` — ограничение числа графов (atlas scan)
 - `scan.limit` — максимальное количество графов для обработки (atlas scan). Если не указано (null), обрабатываются все графы

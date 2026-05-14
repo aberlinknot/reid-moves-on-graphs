@@ -157,6 +157,3 @@ def main() -> None:
 
     print(f'Summary table written: {args.summary_output} ({len(summary_df)} rows)')
 
-
-if __name__ == '__main__':
-    main()

@@ -7,7 +7,7 @@
 
 ## Движения Рейдемейстера
 
-Полные определения см. в [src/moves/reidemeister](../src/moves/reidemeister).
+Полные определения см. в [src/moves/reidemeister](../../src/moves/reidemeister).
 
 - **Движение I** (добавить/удалить изолированную вершину): $\mathrm{I}$
 - **Движение II** (добавить/удалить пару двойников): $\mathrm{II}$

@@ -9,7 +9,7 @@
 - **`src/logging_config.py`** — центральный модуль конфигурации
   - `JSONFormatter` — форматирует логи в JSON для файлов (JSONL формат)
   - `ConsoleFormatter` — красивое форматирование для консоли с цветами
-  - `setup_logging(name)` — инициализирует логгер с консолью и файлом
+  - `setup_logging(name, log_file=None)` — инициализирует логгер с консолью; файл подключается только при переданном `log_file`
   - `log_event(logger, level, message, event, run_id, extra_fields)` — логирует структурированное событие
 
 ### Вывод
@@ -31,12 +31,13 @@
 
 ```python
 import logging
+from pathlib import Path
 from src.logging_config import setup_logging, log_event
 
 logger = logging.getLogger(__name__)
 
 def main():
-    setup_logging(__name__)  # Инициализировать на входе
+  setup_logging(__name__, log_file=Path("logs/process.jsonl"))  # Инициализировать на входе
     
     log_event(
         logger,
@@ -80,7 +81,7 @@ def my_function():
 ### Базовые (всегда присутствуют)
 - `timestamp` — время в формате `YYYY-MM-DD HH:MM:SS`
 - `level` — уровень логирования (DEBUG, INFO, WARNING, ERROR, CRITICAL)
-- `logger` — имя логгера (usually модуль)
+- `logger` — имя логгера (обычно модуль)
 - `message` — основное сообщение
 
 ### Дополнительные (если заданы)
@@ -95,7 +96,7 @@ def my_function():
 
 ```python
 def main():
-    setup_logging(__name__)  # Инициализировать
+  setup_logging(__name__, log_file=config.log_path)  # Инициализировать
     
     log_event(
         logger,

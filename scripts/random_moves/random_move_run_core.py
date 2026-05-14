@@ -27,6 +27,16 @@ SourceType = Literal["yaml", "manual", "atlas"]
 RunRecordWriter = Callable[[dict[str, object]], None]
 
 
+def _is_int_not_bool(value: object) -> bool:
+    """Return True for plain integers, excluding booleans."""
+    return isinstance(value, int) and not isinstance(value, bool)
+
+
+def _is_number_not_bool(value: object) -> bool:
+    """Return True for int/float values, excluding booleans."""
+    return isinstance(value, (int, float)) and not isinstance(value, bool)
+
+
 @dataclass(frozen=True)
 class RunConfig:
     """Configuration for a single weighted random-move run."""
@@ -60,7 +70,7 @@ def parse_move_weights(
     weights: dict[MoveName, float] = {}
     for move in required_moves:
         value = weights_raw.get(move)
-        if not isinstance(value, (int, float)) or value < 0:
+        if not _is_number_not_bool(value) or value < 0:
             raise ValueError(f"Weight for '{move}' must be non-negative numeric value.")
         weights[move] = float(value)
 
@@ -75,11 +85,11 @@ def parse_run_config(path: Path) -> RunConfig:
     raw = load_yaml_mapping(path)
 
     iterations = raw.get("iterations", 100)
-    if not isinstance(iterations, int) or iterations <= 0:
+    if not _is_int_not_bool(iterations) or iterations <= 0:
         raise ValueError("'iterations' must be a positive integer.")
 
     seed_raw = raw.get("seed", None)
-    if seed_raw is not None and not isinstance(seed_raw, int):
+    if seed_raw is not None and not _is_int_not_bool(seed_raw):
         raise ValueError("'seed' must be an integer or null.")
 
     log_path_raw = raw.get("log_path", "scripts/random_moves/single_run/logs/random_moves.jsonl")
@@ -114,11 +124,11 @@ def parse_atlas_scan_config(path: Path) -> AtlasScanConfig:
     raw = load_yaml_mapping(path)
 
     iterations = raw.get("iterations", 1000)
-    if not isinstance(iterations, int) or iterations <= 0:
+    if not _is_int_not_bool(iterations) or iterations <= 0:
         raise ValueError("'iterations' must be a positive integer.")
 
     seed_raw = raw.get("seed", None)
-    if seed_raw is not None and not isinstance(seed_raw, int):
+    if seed_raw is not None and not _is_int_not_bool(seed_raw):
         raise ValueError("'seed' must be an integer or null.")
 
     log_path_raw = raw.get(
@@ -142,15 +152,15 @@ def parse_atlas_scan_config(path: Path) -> AtlasScanConfig:
         raise ValueError("'scan' must be a mapping when provided.")
 
     node_count_raw = scan_raw.get("node_count")
-    if node_count_raw is not None and not isinstance(node_count_raw, int):
+    if node_count_raw is not None and not _is_int_not_bool(node_count_raw):
         raise ValueError("'scan.node_count' must be an integer or null.")
-    if isinstance(node_count_raw, int) and node_count_raw <= 0:
+    if _is_int_not_bool(node_count_raw) and node_count_raw <= 0:
         raise ValueError("'scan.node_count' must be positive when provided.")
 
     limit_raw = scan_raw.get("limit")
-    if limit_raw is not None and not isinstance(limit_raw, int):
+    if limit_raw is not None and not _is_int_not_bool(limit_raw):
         raise ValueError("'scan.limit' must be an integer or null.")
-    if isinstance(limit_raw, int) and limit_raw <= 0:
+    if _is_int_not_bool(limit_raw) and limit_raw <= 0:
         raise ValueError("'scan.limit' must be positive when provided.")
 
     return AtlasScanConfig(
@@ -204,7 +214,7 @@ def load_initial_graph(source_cfg: dict[str, object]) -> tuple[nx.Graph, str]:
         return graph, "manual"
 
     atlas_index_raw = source_cfg.get("atlas_index")
-    if not isinstance(atlas_index_raw, int) or atlas_index_raw < 0:
+    if not _is_int_not_bool(atlas_index_raw) or atlas_index_raw < 0:
         raise ValueError("For atlas source provide non-negative integer 'atlas_index'.")
 
     atlas_graphs = list(nx.graph_atlas_g())
@@ -336,6 +346,20 @@ def run_random_walk(
     applied_moves = 0
     reached_extinction = start_nodes <= 1
     extinct_iteration: int | None = 0 if reached_extinction else None
+
+    if stop_on_extinction and reached_extinction:
+        summary = {
+            "event": "run_end",
+            **run_fields,
+            "applied_moves": applied_moves,
+            "final_nodes": graph_state.number_of_nodes(),
+            "final_edges": graph_state.number_of_edges(),
+            "reached_extinction": True,
+            "extinct_iteration": 0,
+            "iterations_budget": iterations,
+        }
+        on_record(summary)
+        return summary
 
     for iteration in range(1, iterations + 1):
         move = choose_weighted_move(rng, weights)

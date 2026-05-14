@@ -40,14 +40,14 @@ class BaseGraph:
         Returns
         -------
         BaseGraph
-            New wrapper over a copied source graph.
+            New wrapper over an independent shallow copy of the source graph.
         """
         instance = cls()
         instance.nx_graph = graph.copy()
         return instance
 
     def copy(self) -> "BaseGraph":
-        """Return a deep copy of the wrapped graph object."""
+        """Return an independent shallow copy of the wrapped graph object."""
         return BaseGraph.from_networkx(self.nx_graph)
 
     def add_node(self, node: Node, **attr: object) -> None:

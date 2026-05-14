@@ -168,6 +168,3 @@ def main() -> None:
     setup_logging(__name__, verbose=args.verbose)
     run(args.config)
 
-
-if __name__ == "__main__":
-    main()
