@@ -31,6 +31,17 @@ results/images/*
 results/logs/*
 !results/logs/.gitkeep
 
+# LaTeX build artifacts in articles/ (keep only .tex and .pdf)
+articles/**/*.aux
+articles/**/*.fdb_latexmk
+articles/**/*.fls
+articles/**/*.log
+articles/**/*.synctex.gz
+articles/**/*.out
+articles/**/*.toc
+articles/**/*.bbl
+articles/**/*.blg
+
 # Temporary / unsure files – not ready to delete permanently
 junk/
 
