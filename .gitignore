@@ -26,6 +26,8 @@ dist/
 # Generated result images (keep directory structure)
 results/images/*
 !results/images/.gitkeep
+!results/images/nontrivial_brackets/
+!results/images/nontrivial_brackets/**
 
 # Generated experiment logs (keep directory structure)
 results/logs/*
